@@ -54,7 +54,7 @@ const sketch = (p5: P5) => {
         const screenD = Math.min(window.innerWidth, window.innerHeight);
         const canvas = p5.createCanvas(screenD * 0.7, screenD * 0.7);
         canvas.parent('canvasDiv');
-        grid = new Grid(p5);
+        resetGrid();
 
         // Use hammer to detect swipes
         var hammer = new Hammer(document.body);

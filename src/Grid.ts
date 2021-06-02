@@ -1,6 +1,7 @@
 import P5 from 'p5';
 import {Cell} from './Cell';
 import {Direction} from './Direction';
+const seedrandom = require('seedrandom');
 
 export class Grid {
     cells: Cell[][];
@@ -9,13 +10,17 @@ export class Grid {
     gameOver: boolean;
     score: number;
     moves: number;
-    constructor(p5) {
+    seed: string;
+    rng: any;
+    constructor(p5, options?: {seed?: string}) {
         this.p5 = p5;
         this.size = 4;
         this.cells = [];
         this.gameOver = false;
         this.score = 0;
         this.moves = 0;
+        this.seed = options?.seed || Math.random().toString();
+        this.rng = seedrandom(this.seed);
         for (let i = 0; i < this.size; i++) {
             let line = [];
             for (let j = 0; j < this.size; j++) {
@@ -132,8 +137,11 @@ export class Grid {
             return false;
         }
 
-        const randIndex = Math.ceil(this.p5.random(availableCells.length - 1));
-        availableCells[randIndex].value = Math.random() < 0.5 ? 2 : 4;
+        // const randIndex = Math.ceil(this.p5.random(availableCells.length - 1));
+        // const randValue = Math.random() < 0.5 ? 2 : 4;
+        const randIndex = Math.ceil(this.rng() * availableCells.length - 1);
+        const randValue = this.rng() < 0.5 ? 2 : 4;
+        availableCells[randIndex].value = randValue;
         return availableCells[randIndex];
     }
     updateGameOver() {
