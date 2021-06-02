@@ -6,7 +6,7 @@ import 'p5/lib/addons/p5.dom';
 import './styles.scss';
 
 import {Grid} from './Grid';
-import {RandomAI} from './randomAI';
+import {RandomAI} from './AI/RandomAI';
 
 const sketch = (p5: P5) => {
     let appdata = {
