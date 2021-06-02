@@ -11,9 +11,14 @@
         <h1>2048</h1>
         <div id="app">
             <div id="canvasDiv"></div>
-            <div id="scoreText">score: <span id="score">{{score}}</span> </div>
+            <div id="scoreText">score: <span id="score">{{score}}</span> - moves: <span id="moves">{{moves}}</span>
+            </div>
             <div id="rules">
                 Use the arrow keys to move the tiles. When two tiles with the same number touch they merge.
+            </div>
+            <div id="controls">
+                <button id="resetBtn" v-on:click="resetGrid">Reset Grid</button>
+                <button id="runAIBtn" v-on:click="runAI">run AI</button>
             </div>
         </div>
     </div>

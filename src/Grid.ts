@@ -8,16 +8,17 @@ export class Grid {
     size: number;
     gameOver: boolean;
     score: number;
+    moves: number;
     constructor(p5) {
         this.p5 = p5;
         this.size = 4;
         this.cells = [];
         this.gameOver = false;
         this.score = 0;
+        this.moves = 0;
         for (let i = 0; i < this.size; i++) {
             let line = [];
             for (let j = 0; j < this.size; j++) {
-                //line.push(2**Math.ceil(this.p5.random(11)));
                 line.push(new Cell(p5, p5.createVector(j, i), 0, this.size));
             }
             this.cells.push(line);
@@ -67,6 +68,7 @@ export class Grid {
 
         if (didAMove) {
             this.generateNewCell();
+            this.moves++;
         }
         this.updateGameOver();
     }

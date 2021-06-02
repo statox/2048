@@ -1,20 +1,41 @@
 import P5 from 'p5';
+import Vue from 'vue/dist/vue.js';
 import Hammer from 'hammerjs';
 import 'p5/lib/addons/p5.dom';
-import {Grid} from './Grid';
+
 import './styles.scss';
 
-import Vue from 'vue/dist/vue.js';
+import {Grid} from './Grid';
+import {RandomAI} from './randomAI';
 
 const sketch = (p5: P5) => {
     let appdata = {
-        score: 0
+        score: 0,
+        moves: 0
     };
     let grid: Grid;
 
+    const ai = new RandomAI();
+    const runAI = () => {
+        if (grid.gameOver) {
+            return;
+        }
+        const move = ai.play(grid);
+        grid.slide(move);
+        setTimeout(runAI, 50);
+    };
+
+    const resetGrid = () => {
+        grid = new Grid(p5);
+    };
+
     const app = new Vue({
         el: '#app',
-        data: appdata
+        data: appdata,
+        methods: {
+            runAI,
+            resetGrid
+        }
     });
 
     const swiped = (event) => {
@@ -46,6 +67,7 @@ const sketch = (p5: P5) => {
         p5.background(0, 0, 0);
         grid.draw();
         appdata.score = grid.score;
+        appdata.moves = grid.moves;
     };
 
     p5.keyPressed = () => {
