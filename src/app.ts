@@ -4,8 +4,19 @@ import 'p5/lib/addons/p5.dom';
 import {Grid} from './Grid';
 import './styles.scss';
 
+import Vue from 'vue/dist/vue.js';
+
 const sketch = (p5: P5) => {
+    let appdata = {
+        score: 0
+    };
     let grid: Grid;
+
+    const app = new Vue({
+        el: '#app',
+        data: appdata
+    });
+
     const swiped = (event) => {
         if (event.direction == 4) {
             grid.slide('RIGHT');
@@ -21,7 +32,7 @@ const sketch = (p5: P5) => {
     p5.setup = () => {
         const screenD = Math.min(window.innerWidth, window.innerHeight);
         const canvas = p5.createCanvas(screenD * 0.7, screenD * 0.7);
-        canvas.parent('app');
+        canvas.parent('canvasDiv');
         grid = new Grid(p5);
 
         // Use hammer to detect swipes
@@ -34,7 +45,7 @@ const sketch = (p5: P5) => {
     p5.draw = () => {
         p5.background(0, 0, 0);
         grid.draw();
-        document.getElementById('score').innerText = grid.score.toString();
+        appdata.score = grid.score;
     };
 
     p5.keyPressed = () => {

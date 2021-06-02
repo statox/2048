@@ -9,10 +9,12 @@
 <body>
     <div class="container">
         <h1>2048</h1>
-        <div id="app"></div>
-        <div id="scoreText">score: <span id="score">0</span> </div>
-        <div id="rules">
-            Use the arrow keys to move the tiles. When two tiles with the same number touch they merge.
+        <div id="app">
+            <div id="canvasDiv"></div>
+            <div id="scoreText">score: <span id="score">{{score}}</span> </div>
+            <div id="rules">
+                Use the arrow keys to move the tiles. When two tiles with the same number touch they merge.
+            </div>
         </div>
     </div>
     <script src="src/app.ts"></script>
