@@ -8,7 +8,9 @@
     "build-ci": "parcel build index.html --public-url /2048"
   },
   "dependencies": {
+    "@types/hammerjs": "^2.0.39",
     "@types/p5": "0.9.0",
+    "hammerjs": "^2.0.8",
     "p5": "0.9.0"
   },
   "devDependencies": {
