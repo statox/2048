@@ -4,12 +4,8 @@ name: Build and deploy
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
-  pull_request_target:
-    branches: [ main ]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -33,5 +29,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: dist # The folder the action should deploy.
-          #TARGET_FOLDER: reversi
           CLEAN: true # Automatically remove deleted files from the deploy branch
