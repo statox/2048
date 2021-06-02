@@ -1,15 +1,7 @@
-# Reversi
+# 2048
 
-For some reason it doesn't work with `npm` but works fine with `yarn`.
+My implementation of the game 2048 [like this one](https://play2048.co/).
 
-Use
+The end game would be to create an AI which can play the game, let's see if I get there...
 
-    yarn
-
-To install dependencies.
-
-Use
-
-    yarn start
-
-For local dev.
+Demo [here](https://statox.github.io/2048/).
