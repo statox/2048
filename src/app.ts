@@ -7,6 +7,7 @@ import './styles.scss';
 
 import {Grid} from './Grid';
 import {RandomAI} from './AI/RandomAI';
+import {BFS_AI} from './AI/BFS_AI';
 
 const sketch = (p5: P5) => {
     let appdata = {
@@ -16,17 +17,23 @@ const sketch = (p5: P5) => {
     let grid: Grid;
 
     const ai = new RandomAI();
+    // const ai = new BFS_AI();
+
     const runAI = () => {
+        hintAI();
+        setTimeout(runAI, 50);
+    };
+
+    const hintAI = () => {
         if (grid.gameOver) {
             return;
         }
         const move = ai.play(grid);
         grid.slide(move);
-        setTimeout(runAI, 50);
     };
 
     const resetGrid = () => {
-        grid = new Grid(p5);
+        grid = new Grid(p5, {seed: 'totot1', generateStartingCells: true});
     };
 
     const app = new Vue({
@@ -34,6 +41,7 @@ const sketch = (p5: P5) => {
         data: appdata,
         methods: {
             runAI,
+            hintAI,
             resetGrid
         }
     });

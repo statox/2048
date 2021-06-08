@@ -1,7 +1,6 @@
 import {Direction} from '../Direction';
 import {Grid} from '../Grid';
 import {AI} from './AI';
-const seedrandom = require('seedrandom');
 
 export class RandomAI implements AI {
     constructor() {}

@@ -12,7 +12,7 @@ export class Grid {
     moves: number;
     seed: string;
     rng: any;
-    constructor(p5, options?: {seed?: string}) {
+    constructor(p5, options?: {seed?: string; generateStartingCells?: boolean}) {
         this.p5 = p5;
         this.size = 4;
         this.cells = [];
@@ -29,8 +29,23 @@ export class Grid {
             this.cells.push(line);
         }
 
-        this.generateNewCell();
-        this.generateNewCell();
+        if (options?.generateStartingCells) {
+            this.generateNewCell();
+            this.generateNewCell();
+        }
+    }
+
+    clone() {
+        const copy = new Grid(this.p5, {seed: this.seed});
+        copy.moves = this.moves;
+        copy.score = this.score;
+        copy.size = this.size;
+        for (let y = 0; y < this.size; y++) {
+            for (let x = 0; x < this.size; x++) {
+                copy.cells[y][x].value = this.cells[y][x].value;
+            }
+        }
+        return copy;
     }
 
     slide(d: Direction) {
@@ -144,6 +159,35 @@ export class Grid {
         availableCells[randIndex].value = randValue;
         return availableCells[randIndex];
     }
+
+    /*
+     *     generateNewCell() {
+     *         let availableCells = [];
+     *         for (let y = 0; y < this.size; y++) {
+     *             for (let x = 0; x < this.size; x++) {
+     *                 if (this.cells[y][x].value === 0) {
+     *                     availableCells.push(this.cells[y][x]);
+     *                 }
+     *             }
+     *         }
+     *
+     *         if (!availableCells.length) {
+     *             return false;
+     *         }
+     *
+     *         // const randIndex = Math.ceil(this.p5.random(availableCells.length - 1));
+     *         // const randValue = Math.random() < 0.5 ? 2 : 4;
+     *         const seed = `${this.seed}X${this.moves.toString()}`;
+     *         this.rng = seedrandom(seed);
+     *         const indexBase = this.rng();
+     *         const randIndex = Math.ceil(indexBase * availableCells.length - 1);
+     *         // const randValue = this.rng() < 0.5 ? 2 : 4;
+     *         const randValue = 2;
+     *         console.log({seed, indexBase, randIndex, randValue});
+     *         availableCells[randIndex].value = randValue;
+     *         return availableCells[randIndex];
+     *     }
+     */
     updateGameOver() {
         let availableCells = [];
         for (let y = 0; y < this.size; y++) {
